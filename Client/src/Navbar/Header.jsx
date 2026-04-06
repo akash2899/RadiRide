@@ -1,8 +1,11 @@
 import React, { useState } from "react";
-// import "./App.css"; 
+import AuthModal from "../LoginModal/AuthModal"; 
+import AppDownloadModal from "../AppDownloadModal/DownloadModal";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isAppModalOpen, setIsAppModalOpen] = useState(false);
 
   return (
     <>
@@ -24,23 +27,30 @@ const Header = () => {
 
           {/* RIGHT */}
           <div className="header-right">
-            <button className="btn-outline">Get the App</button>
-            <button className="btn-primary">Login / Signup</button>
+          <button 
+  className="btn-outline"
+  onClick={() => setIsAppModalOpen(true)}
+>
+  Get the App
+</button>
+
+            <button 
+              className="btn-primary"
+              onClick={() => setIsModalOpen(true)}
+            >
+              Login / Signup
+            </button>
           </div>
         </div>
       </header>
 
       {/* SIDEBAR */}
       <div className={`sidebar ${isOpen ? "open" : ""}`}>
-        
-        {/* HEADER */}
         <div className="sidebar-header">
           <span className="close-btn" onClick={() => setIsOpen(false)}>←</span>
         </div>
 
-        {/* MENU */}
         <div className="sidebar-menu">
-
           <div className="menu-item">
             <span className="icon">👤</span>
             <span>Login or Signup</span>
@@ -79,7 +89,6 @@ const Header = () => {
             <span className="icon">📝</span>
             <span>Blogs</span>
           </div>
-
         </div>
       </div>
 
@@ -87,6 +96,16 @@ const Header = () => {
       {isOpen && (
         <div className="overlay" onClick={() => setIsOpen(false)}></div>
       )}
+
+      {/* ✅ MODAL (CORRECT POSITION) */}
+      <AuthModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
+      <AppDownloadModal
+  isOpen={isAppModalOpen}
+  onClose={() => setIsAppModalOpen(false)}
+/>
     </>
   );
 };
