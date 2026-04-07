@@ -1,33 +1,71 @@
 # RadiRide
 
-RadiRide is a React-based frontend prototype for a peer-to-peer two-wheeler rental platform. The current codebase focuses on the landing experience and core entry interactions such as opening the navigation drawer, starting login/signup with an OTP-style flow, and showing an app download modal with QR/store links.
+RadiRide is a React frontend for a peer-to-peer two-wheeler rental platform. The current codebase is focused on the landing page experience: a fixed header, sidebar navigation, login/signup modal, app download modal, and a homepage search card for booking self-drive bikes across India.
 
-## Current Status
+## Current State of the Project
 
-This repository currently contains a frontend application only. There is no backend, API integration, database, or real authentication flow implemented yet.
+This repository currently contains a client-side application only.
 
-The UI branding in the code currently uses the name `RahiRide` in several components, while the repository is named `RadiRide`.
+- No backend or database is connected yet
+- Authentication is UI-only
+- Search is UI + client-side validation only
+- Some branding in the UI still uses the name `RahiRide`
+- A few symbols/icons in the rendered text show encoding issues in the current source
 
-## Implemented Features
+## Features Implemented
 
-- Fixed top navigation bar with brand area and action buttons
-- Slide-out sidebar menu opened from the hamburger icon
-- `Login / Signup` modal with:
+- Fixed navigation bar with logo, menu button, `Get the App`, and `Login / Signup`
+- Slide-out sidebar menu with static navigation items
+- Login/signup modal with:
   - mobile number input
-  - OTP screen transition
-  - 4-digit OTP input boxes with auto-focus handling
-- `Get the App` modal with:
+  - OTP step transition
+  - 4 separate OTP boxes with auto-focus behavior
+- App download modal with:
   - QR code image
-  - Play Store and App Store badges
-- Basic responsive behavior that hides header action buttons on smaller screens
+  - Play Store badge
+  - App Store badge
+- Homepage hero section with:
+  - booking/search card
+  - city selector populated from an external API
+  - pickup location input
+  - start and end date-time pickers
+  - basic validation before search
+- Feature strip showing bike rental selling points
+
+## How the App Works Right Now
+
+1. `client/src/App.js` renders the welcome heading, header, and homepage content.
+2. `client/src/Navbar/Header.jsx` manages sidebar state and opens both modals.
+3. `client/src/ContentPage/Home.jsx` fetches Indian states from an external API and fills the city dropdown.
+4. The search form validates that:
+   - a start date is selected
+   - an end date is selected
+   - the end date is after the start date
+5. Search currently logs the form data to the browser console instead of calling a backend.
+
+## External API Usage
+
+The homepage currently depends on this API at runtime:
+
+- `https://countriesnow.space/api/v0.1/countries/states`
+
+It is used to fetch the list of Indian states for the city dropdown. If the request fails, the dropdown will not be populated.
 
 ## Tech Stack
 
 - React 19
+- React DOM 19
 - Create React App
-- Plain CSS
-- Tailwind CSS tooling installed but not currently used in the component code
-- Lucide React installed as a dependency, but not currently used in the visible UI
+- Plain CSS in `src/App.css`
+- Tailwind CSS tooling and directives are present
+- PostCSS + Autoprefixer
+- React Testing Library
+
+## Styling Notes
+
+- `client/src/index.css` includes Tailwind directives
+- `client/tailwind.config.js` exists, but the `content` array is currently empty
+- Most visible UI styling is currently written in `client/src/App.css`
 
 ## Project Structure
 
@@ -36,27 +74,25 @@ RadiRide/
   README.md
   client/
     package.json
+    package-lock.json
     public/
     src/
       App.js
       App.css
+      index.js
+      index.css
+      App.test.js
       Navbar/
         Header.jsx
       LoginModal/
         AuthModal.jsx
       AppDownloadModal/
         DownloadModal.jsx
+      ContentPage/
+        Home.jsx
 ```
 
-## Main UI Flow
-
-1. The app starts from `client/src/App.js`.
-2. `Header.jsx` renders the fixed navbar and manages modal/sidebar open state.
-3. Clicking the menu icon opens the sidebar.
-4. Clicking `Login / Signup` opens `AuthModal.jsx`.
-5. Clicking `Get the App` opens `DownloadModal.jsx`.
-
-## How to Run Locally
+## Run Locally
 
 ```bash
 cd client
@@ -64,40 +100,42 @@ npm install
 npm start
 ```
 
-After starting the development server, open `http://localhost:3000`.
+Then open `http://localhost:3000`.
 
 ## Available Scripts
 
-From the `client` directory:
+Run these commands inside the `client` folder:
 
-- `npm start` - runs the app in development mode
-- `npm run build` - creates a production build
-- `npm test` - runs the test suite
+- `npm start` starts the development server
+- `npm run build` creates the production build
+- `npm test` runs the test suite
 
-## What Is UI-Only Right Now
+## Known Gaps and Limitations
 
-The following interactions are present as frontend behavior only:
+- No real login/signup integration
+- No OTP sending or OTP verification service
+- No route/page navigation for sidebar items
+- Search does not return results yet
+- No bikes list, booking flow, or checkout flow yet
+- Store badges are visual only
+- The hero image element is rendered without an image source
+- Existing test file still checks for `learn react`, which does not match the current UI
 
-- phone number submission
-- OTP generation and verification
-- resend OTP
-- app store badge actions
-- sidebar menu navigation
+## Suggested Next Improvements
 
-## Notes for Further Development
+- Connect the search form to a rides listing API
+- Add loading and error UI for the states API request
+- Add phone number validation before moving to the OTP step
+- Replace placeholder console logging with real booking/search behavior
+- Fix text encoding issues in icons and labels
+- Finalize the product name across the project
+- Update the test suite to match the current UI
 
-- Add form validation for phone number and OTP input
-- Connect login flow to a real authentication service
-- Replace static external images with managed project assets
-- Add actual routes/pages for menu items
-- Improve mobile navigation because header buttons are hidden on small screens
-- Clean up text encoding issues visible in some symbols/icons
-- Decide on final product name: `RadiRide` or `RahiRide`
+## Key Source Files
 
-## Entry Files
-
-- `client/src/App.js` - app root
-- `client/src/Navbar/Header.jsx` - navbar, sidebar, and modal state
-- `client/src/LoginModal/AuthModal.jsx` - login/signup modal and OTP UI
-- `client/src/AppDownloadModal/DownloadModal.jsx` - app download modal
-- `client/src/App.css` - shared styling for the current UI
+- `client/src/App.js` - app root composition
+- `client/src/Navbar/Header.jsx` - navbar, sidebar, and modal triggers
+- `client/src/LoginModal/AuthModal.jsx` - phone and OTP modal flow
+- `client/src/AppDownloadModal/DownloadModal.jsx` - app download popup
+- `client/src/ContentPage/Home.jsx` - homepage search and states fetch
+- `client/src/App.css` - main UI styling
