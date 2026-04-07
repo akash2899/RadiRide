@@ -1,14 +1,15 @@
 import Header from "./Navbar/Header";
 import "./App.css";
+import Home from "./ContentPage/Home";
 
 function App() {
   return (
     <>
-      <Header />
-
       <div style={{ paddingTop: "64px" }}>
-        {/* Your content */}
-        <h1>Welcome to RahiRide 🚀</h1>
+         <h2 style={{ textAlign: "center" } }>Welcome to RahiRide 🚀</h2>
+        <Header />
+        <Home />
+       
       </div>
     </>
   );

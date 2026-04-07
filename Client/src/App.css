@@ -23,13 +23,13 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 20px;
+  padding: 0 10px;
 }
 
 /* LEFT */
 .header-left {
   display: flex;
-  align-items: center;
+  align-items: left;
   gap: 16px;
 }
 
@@ -409,4 +409,126 @@
 
 .app-right img {
   width: 180px;
+}
+
+/* home page css */
+.home {
+  font-family: "Segoe UI", sans-serif;
+}
+
+/* HERO */
+.hero {
+  display: flex;
+  background: linear-gradient(90deg, #0f9d58, #1db954);
+  padding: 40px;
+  gap: 40px;
+  align-items: center;
+}
+
+/* SEARCH CARD */
+.search-card {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 350px;
+}
+
+.tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.tabs span {
+  padding: 5px 10px;
+  background: #eee;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.tabs .active {
+  background: #16a34a;
+  color: white;
+}
+
+.input-group {
+  margin-bottom: 10px;
+}
+
+.input-group label {
+  font-size: 12px;
+  color: #666;
+}
+
+.input-group input,
+.input-group select {
+  width: 100%;
+  padding: 8px;
+  margin-top: 4px;
+}
+
+.date-row {
+  display: flex;
+  gap: 10px;
+  margin: 10px 0;
+}
+
+.search-btn {
+  width: 100%;
+  padding: 12px;
+  background: #16a34a;
+  color: white;
+  border: none;
+  border-radius: 6px;
+}
+
+/* HERO RIGHT */
+.hero-content {
+  flex: 1;
+  color: white;
+}
+
+.hero-content h1 {
+  font-size: 48px;
+}
+
+.hero-content h2 {
+  font-size: 28px;
+}
+
+.hero-content img {
+  margin-top: 20px;
+  width: 300px;
+  border-radius: 10px;
+}
+
+/* FEATURES */
+.features {
+  display: flex;
+  justify-content: space-around;
+  padding: 30px;
+  background: #f5f5f5;
+}
+.date-row {
+  display: flex;
+  gap: 2px;
+  margin: 5px 0;
+}
+
+.date-box {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.date-box label {
+  font-size: 12px;
+  color: #666;
+  margin-bottom: 2px;
+}
+
+.date-box input {
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
 }
